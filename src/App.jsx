@@ -5,6 +5,10 @@ import './style.css';
 import { Ground } from './Ground';
 import Car from './Car';
 import Rings from './Rings';
+import { Boxes } from './Boxes';
+import { Bloom, EffectComposer } from '@react-three/postprocessing';
+import { BlendFunction } from 'postprocessing';
+import { FloatingGrid } from './FloatingGrid';
 
 function CarShow() {
   return (
@@ -25,6 +29,8 @@ function CarShow() {
       </CubeCamera>
 
       <Rings />
+      <Boxes />
+      <FloatingGrid />
 
       <spotLight
         color={[1, 0.25, 0.7]}
@@ -46,7 +52,30 @@ function CarShow() {
         shadow-bias={-0.0001}
       />
 
+      <spotLight
+        color={[1, 1, 1]}
+        intensity={0.3}
+        angle={1}
+        penumbra={0.5}
+        position={[0, 5, 0]}
+        castShadow
+        shadow-bias={-0.0001}
+      />
+
       <Ground />
+
+      <EffectComposer>
+        <Bloom
+          blendFunction={BlendFunction.ADD}
+          intensity={0.2}
+          width={300}
+          height={300}
+          kernelSize={5}
+          luminanceThreshold={0.15}
+          luminanceSmoothing={0.025}
+        />
+      </EffectComposer>
+
     </>
   )
 }
